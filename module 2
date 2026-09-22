@@ -1,0 +1,1730 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+% ------------------------------------------------
+% PACKAGES
+% ------------------------------------------------
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{tikz}
+
+\usetikzlibrary{
+    arrows.meta,
+    positioning,
+    calc,
+    patterns
+}
+
+% ------------------------------------------------
+% THEME
+% ------------------------------------------------
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\setbeamertemplate{navigation symbols}{}
+
+% ------------------------------------------------
+% TITLE INFORMATION
+% ------------------------------------------------
+\title{Linear Algebra for Computing}
+\subtitle{Vectors, Matrices, Transformations and Vector Spaces}
+
+\author{DILNA P}
+
+\institute{
+M.Tech in Computer Science and Engineering\\
+Specialization in Data Science and Artificial Intelligence\\
+Department of Computer Science\\
+Cochin University of Science and Technology (CUSAT)
+}
+
+\date{}
+
+% ------------------------------------------------
+% DOCUMENT
+% ------------------------------------------------
+\begin{document}
+
+% =================================================
+% TITLE
+% =================================================
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+% =================================================
+% CONTENTS
+% =================================================
+
+\begin{frame}{Contents}
+
+\begin{columns}
+
+\column{0.48\textwidth}
+
+\begin{enumerate}
+    \item Vectors and Coordinate Systems
+    \item Vector Operations
+    \item Linear Combinations, Span and Basis
+    \item Matrices as Linear Transformations
+    \item Determinants and Inverse Matrices
+    \item Column Space and Null Space
+    \item Nonsquare Matrices
+\end{enumerate}
+
+\column{0.48\textwidth}
+
+\begin{enumerate}
+    \setcounter{enumi}{7}
+    \item Dot Products and Duality
+    \item Cross Products
+    \item Cramer's Rule
+    \item Change of Basis
+    \item Eigenvectors and Eigenvalues
+    \item Vector Spaces
+    \item Applications and Summary
+\end{enumerate}
+
+\end{columns}
+
+\end{frame}
+
+% =================================================
+% 1. VECTORS
+% =================================================
+
+\section{Vectors and Coordinate Systems}
+
+\begin{frame}{What is a Vector?}
+
+\textbf{Definition:}
+
+A vector is a mathematical quantity that has both
+\textbf{magnitude} and \textbf{direction}.
+
+\vspace{0.3cm}
+
+A vector can be represented using components.
+
+For example,
+
+\[
+\mathbf{v}
+=
+\begin{bmatrix}
+3\\
+2
+\end{bmatrix}
+\]
+
+means that the vector moves:
+
+\begin{itemize}
+    \item 3 units in the $x$ direction
+    \item 2 units in the $y$ direction
+\end{itemize}
+
+\textbf{Example:}
+
+If a person moves 3 m east and 2 m north, the displacement
+can be represented by
+
+\[
+\mathbf{v}=(3,2)
+\]
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Vector Graph}
+
+\begin{columns}
+
+\column{0.52\textwidth}
+
+\textbf{Vector}
+
+\[
+\mathbf v=
+\begin{bmatrix}
+3\\
+2
+\end{bmatrix}
+\]
+
+The vector starts at the origin $(0,0)$ and ends at
+$(3,2)$.
+
+\column{0.48\textwidth}
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.75]
+
+\draw[->] (-0.5,0)--(4.5,0) node[right]{$x$};
+\draw[->] (0,-0.5)--(0,3.5) node[above]{$y$};
+
+\draw[->,very thick] (0,0)--(3,2);
+
+\draw[dashed] (3,0)--(3,2);
+\draw[dashed] (0,2)--(3,2);
+
+\node at (3.2,2.2) {$\mathbf v=(3,2)$};
+
+\foreach \x in {1,2,3,4}
+\node[below] at (\x,0) {\small $\x$};
+
+\foreach \y in {1,2,3}
+\node[left] at (0,\y) {\small $\y$};
+
+\end{tikzpicture}
+
+\end{center}
+
+\end{columns}
+
+\end{frame}
+
+% =================================================
+% COORDINATE SYSTEM
+% =================================================
+
+\begin{frame}{Coordinate System}
+
+A coordinate system provides a reference for describing the
+position of points and vectors.
+
+\vspace{0.3cm}
+
+In a two-dimensional coordinate system:
+
+\[
+P=(x,y)
+\]
+
+where:
+
+\begin{itemize}
+    \item $x$ represents the horizontal coordinate.
+    \item $y$ represents the vertical coordinate.
+\end{itemize}
+
+\textbf{Example:}
+
+For
+
+\[
+P=(3,2)
+\]
+
+we move 3 units along the $x$-axis and 2 units along the
+$y$-axis.
+
+\end{frame}
+
+% =================================================
+% VECTOR ADDITION
+% =================================================
+
+\section{Vector Operations}
+
+\begin{frame}{Vector Addition}
+
+Vector addition means adding the corresponding components
+of two vectors.
+
+If
+
+\[
+\mathbf u=
+\begin{bmatrix}
+u_1\\
+u_2
+\end{bmatrix},
+\qquad
+\mathbf v=
+\begin{bmatrix}
+v_1\\
+v_2
+\end{bmatrix}
+\]
+
+then
+
+\[
+\mathbf u+\mathbf v
+=
+\begin{bmatrix}
+u_1+v_1\\
+u_2+v_2
+\end{bmatrix}
+\]
+
+\textbf{Example:}
+
+\[
+\mathbf u=
+\begin{bmatrix}
+2\\
+1
+\end{bmatrix},
+\qquad
+\mathbf v=
+\begin{bmatrix}
+1\\
+3
+\end{bmatrix}
+\]
+
+Therefore,
+
+\[
+\boxed{
+\mathbf u+\mathbf v=
+\begin{bmatrix}
+3\\
+4
+\end{bmatrix}}
+\]
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Vector Addition Graph}
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.8]
+
+\draw[->] (-0.5,0)--(4.5,0) node[right]{$x$};
+\draw[->] (0,-0.5)--(0,4.5) node[above]{$y$};
+
+\draw[->,very thick] (0,0)--(2,1)
+node[midway,below]{$\mathbf u$};
+
+\draw[->,very thick] (2,1)--(3,4)
+node[midway,right]{$\mathbf v$};
+
+\draw[->,very thick] (0,0)--(3,4)
+node[midway,left]{$\mathbf u+\mathbf v$};
+
+\draw[dashed] (2,1)--(3,4);
+\draw[dashed] (1,3)--(3,4);
+
+\end{tikzpicture}
+
+\end{center}
+
+The triangle/parallelogram rule provides a geometric interpretation
+of vector addition.
+
+\end{frame}
+
+% =================================================
+% SCALAR MULTIPLICATION
+% =================================================
+
+\begin{frame}{Scalar Multiplication}
+
+Scalar multiplication means multiplying every component of a
+vector by the same number.
+
+\[
+k\mathbf v=
+\begin{bmatrix}
+kv_1\\
+kv_2
+\end{bmatrix}
+\]
+
+\textbf{Example:}
+
+Let
+
+\[
+\mathbf v=
+\begin{bmatrix}
+2\\
+1
+\end{bmatrix}
+\]
+
+and $k=3$.
+
+Then
+
+\[
+3\mathbf v
+=
+3
+\begin{bmatrix}
+2\\
+1
+\end{bmatrix}
+=
+\begin{bmatrix}
+6\\
+3
+\end{bmatrix}
+\]
+
+The direction remains the same while the magnitude becomes
+three times larger.
+
+\end{frame}
+
+% =================================================
+% LINEAR COMBINATION
+% =================================================
+
+\section{Linear Combinations, Span and Basis}
+
+\begin{frame}{Linear Combination}
+
+A linear combination is an expression formed by multiplying
+vectors by scalars and adding the results.
+
+\[
+\mathbf w
+=
+a\mathbf v_1+b\mathbf v_2
+\]
+
+where $a$ and $b$ are scalars.
+
+\textbf{Example:}
+
+Let
+
+\[
+\mathbf v_1=
+\begin{bmatrix}
+1\\
+0
+\end{bmatrix},
+\qquad
+\mathbf v_2=
+\begin{bmatrix}
+0\\
+1
+\end{bmatrix}
+\]
+
+Then
+
+\[
+2\mathbf v_1+3\mathbf v_2
+=
+\begin{bmatrix}
+2\\
+3
+\end{bmatrix}
+\]
+
+Therefore, $(2,3)$ is a linear combination of the two basis
+vectors.
+
+\end{frame}
+
+% =================================================
+% SPAN
+% =================================================
+
+\begin{frame}{Span}
+
+The \textbf{span} of a set of vectors is the collection of all
+vectors that can be created using their linear combinations.
+
+For example,
+
+\[
+\mathbf e_1=
+\begin{bmatrix}
+1\\
+0
+\end{bmatrix},
+\qquad
+\mathbf e_2=
+\begin{bmatrix}
+0\\
+1
+\end{bmatrix}
+\]
+
+Their span is
+
+\[
+\operatorname{span}\{\mathbf e_1,\mathbf e_2\}
+=
+\mathbb R^2
+\]
+
+because every vector
+
+\[
+\begin{bmatrix}
+x\\
+y
+\end{bmatrix}
+=
+x\mathbf e_1+y\mathbf e_2
+\]
+
+can be generated.
+
+\end{frame}
+
+% =================================================
+% BASIS
+% =================================================
+
+\begin{frame}{Basis Vectors}
+
+A basis is a set of vectors that:
+
+\begin{enumerate}
+    \item spans the space, and
+    \item is linearly independent.
+\end{enumerate}
+
+For $\mathbb R^2$, the standard basis is
+
+\[
+\mathbf e_1=
+\begin{bmatrix}
+1\\
+0
+\end{bmatrix},
+\qquad
+\mathbf e_2=
+\begin{bmatrix}
+0\\
+1
+\end{bmatrix}
+\]
+
+Every vector in $\mathbb R^2$ can be written as
+
+\[
+\mathbf v=x\mathbf e_1+y\mathbf e_2.
+\]
+
+\end{frame}
+
+% =================================================
+% MATRIX TRANSFORMATION
+% =================================================
+
+\section{Matrices as Linear Transformations}
+
+\begin{frame}{Matrix as a Transformation}
+
+A matrix can transform a vector from one position to another.
+
+If
+
+\[
+A=
+\begin{bmatrix}
+2&0\\
+0&1
+\end{bmatrix}
+\]
+
+and
+
+\[
+\mathbf v=
+\begin{bmatrix}
+1\\
+2
+\end{bmatrix}
+\]
+
+then
+
+\[
+A\mathbf v
+=
+\begin{bmatrix}
+2&0\\
+0&1
+\end{bmatrix}
+\begin{bmatrix}
+1\\
+2
+\end{bmatrix}
+=
+\begin{bmatrix}
+2\\
+2
+\end{bmatrix}.
+\]
+
+The matrix stretches the vector in the $x$ direction.
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Matrix Transformation Graph}
+
+\begin{columns}
+
+\column{0.48\textwidth}
+
+\[
+\mathbf v=(1,2)
+\]
+
+After transformation:
+
+\[
+A\mathbf v=(2,2)
+\]
+
+The $x$ coordinate is doubled.
+
+\column{0.52\textwidth}
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.8]
+
+\draw[->] (-0.5,0)--(3.5,0) node[right]{$x$};
+\draw[->] (0,-0.5)--(0,3.5) node[above]{$y$};
+
+\draw[->,thick] (0,0)--(1,2)
+node[midway,left]{$\mathbf v$};
+
+\draw[->,thick] (0,0)--(2,2)
+node[midway,above]{$A\mathbf v$};
+
+\end{tikzpicture}
+
+\end{center}
+
+\end{columns}
+
+\end{frame}
+
+% =================================================
+% COMPOSITION
+% =================================================
+
+\begin{frame}{Matrix Multiplication as Composition}
+
+Two transformations can be applied one after another.
+
+Suppose
+
+\[
+A\mathbf v
+\]
+
+is the first transformation and
+
+\[
+B(A\mathbf v)
+\]
+
+is the second transformation.
+
+Therefore,
+
+\[
+B(A\mathbf v)
+=
+(BA)\mathbf v.
+\]
+
+Thus, matrix multiplication represents the composition of
+linear transformations.
+
+\[
+\boxed{BA}
+\]
+
+means that $A$ is applied first and $B$ is applied second.
+
+\end{frame}
+
+% =================================================
+% 3D TRANSFORMATION
+% =================================================
+
+\begin{frame}{Three-Dimensional Linear Transformation}
+
+A three-dimensional vector has three components:
+
+\[
+\mathbf v=
+\begin{bmatrix}
+x\\
+y\\
+z
+\end{bmatrix}.
+\]
+
+A $3\times3$ matrix can transform this vector.
+
+For example,
+
+\[
+A=
+\begin{bmatrix}
+2&0&0\\
+0&2&0\\
+0&0&1
+\end{bmatrix}
+\]
+
+scales the $x$ and $y$ coordinates by 2.
+
+\end{frame}
+
+% =================================================
+% DETERMINANT
+% =================================================
+
+\section{Determinants and Inverse Matrices}
+
+\begin{frame}{Determinant}
+
+The determinant is a scalar value associated with a square matrix.
+
+For
+
+\[
+A=
+\begin{bmatrix}
+a&b\\
+c&d
+\end{bmatrix}
+\]
+
+the determinant is
+
+\[
+\boxed{
+\det(A)=ad-bc
+}
+\]
+
+\textbf{Example:}
+
+\[
+A=
+\begin{bmatrix}
+2&1\\
+3&4
+\end{bmatrix}
+\]
+
+Therefore,
+
+\[
+\det(A)
+=
+(2)(4)-(1)(3)
+=
+8-3
+=
+5.
+\]
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Geometric Meaning of Determinant}
+
+For a two-dimensional transformation, the absolute value of
+the determinant represents the factor by which area changes.
+
+If
+
+\[
+|\det(A)|=5,
+\]
+
+then an area of $1$ becomes an area of $5$.
+
+If
+
+\[
+\det(A)=0,
+\]
+
+the transformation collapses the plane into a lower-dimensional
+space.
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.7]
+
+\draw[->] (-0.5,0)--(4,0);
+\draw[->] (0,-0.5)--(0,4);
+
+\draw[thick] (0,0)--(2,0)--(2,2)--(0,2)--cycle;
+
+\node at (1,1) {Area};
+
+\end{tikzpicture}
+
+\end{center}
+
+\end{frame}
+
+% =================================================
+% INVERSE
+% =================================================
+
+\begin{frame}{Inverse Matrix}
+
+The inverse of a matrix $A$ is written as
+
+\[
+A^{-1}.
+\]
+
+It satisfies
+
+\[
+AA^{-1}=A^{-1}A=I.
+\]
+
+For
+
+\[
+A=
+\begin{bmatrix}
+a&b\\
+c&d
+\end{bmatrix},
+\]
+
+\[
+A^{-1}
+=
+\frac{1}{ad-bc}
+\begin{bmatrix}
+d&-b\\
+-c&a
+\end{bmatrix}.
+\]
+
+The inverse exists only when
+
+\[
+\det(A)\neq0.
+\]
+
+\end{frame}
+
+% =================================================
+% COLUMN SPACE
+% =================================================
+
+\section{Column Space and Null Space}
+
+\begin{frame}{Column Space}
+
+The column space of a matrix is the set of all linear
+combinations of its columns.
+
+For
+
+\[
+A=
+\begin{bmatrix}
+1&0\\
+0&1
+\end{bmatrix}
+\]
+
+the columns are
+
+\[
+\mathbf c_1=
+\begin{bmatrix}
+1\\0
+\end{bmatrix},
+\qquad
+\mathbf c_2=
+\begin{bmatrix}
+0\\1
+\end{bmatrix}.
+\]
+
+Therefore,
+
+\[
+\operatorname{Col}(A)=\mathbb R^2.
+\]
+
+\end{frame}
+
+% =================================================
+% NULL SPACE
+% =================================================
+
+\begin{frame}{Null Space}
+
+The null space contains all vectors $\mathbf x$ satisfying
+
+\[
+A\mathbf x=\mathbf0.
+\]
+
+\textbf{Example:}
+
+Let
+
+\[
+A=
+\begin{bmatrix}
+1&1\\
+2&2
+\end{bmatrix}.
+\]
+
+We solve
+
+\[
+A
+\begin{bmatrix}
+x\\y
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\0
+\end{bmatrix}.
+\]
+
+This gives
+
+\[
+x+y=0.
+\]
+
+Therefore,
+
+\[
+y=-x.
+\]
+
+The null space is
+
+\[
+\operatorname{Null}(A)
+=
+\left\{
+\begin{bmatrix}
+t\\-t
+\end{bmatrix}
+:t\in\mathbb R
+\right\}.
+\]
+
+\end{frame}
+
+% =================================================
+% NONSQUARE
+% =================================================
+
+\section{Nonsquare Matrices}
+
+\begin{frame}{Nonsquare Matrices}
+
+A nonsquare matrix has different numbers of rows and columns.
+
+For example,
+
+\[
+A=
+\begin{bmatrix}
+1&0\\
+0&1\\
+1&1
+\end{bmatrix}
+\]
+
+is a $3\times2$ matrix.
+
+It maps
+
+\[
+\boxed{\mathbb R^2\rightarrow\mathbb R^3}
+\]
+
+because a two-dimensional vector is multiplied by the matrix
+to produce a three-dimensional vector.
+
+\end{frame}
+
+% =================================================
+% DOT PRODUCT
+% =================================================
+
+\section{Dot Product and Duality}
+
+\begin{frame}{Dot Product}
+
+The dot product of two vectors is
+
+\[
+\mathbf u\cdot\mathbf v
+=
+u_1v_1+u_2v_2+\cdots+u_nv_n.
+\]
+
+For two-dimensional vectors,
+
+\[
+\mathbf u=
+\begin{bmatrix}
+u_1\\u_2
+\end{bmatrix},
+\qquad
+\mathbf v=
+\begin{bmatrix}
+v_1\\v_2
+\end{bmatrix}
+\]
+
+we have
+
+\[
+\mathbf u\cdot\mathbf v
+=
+u_1v_1+u_2v_2.
+\]
+
+\textbf{Example:}
+
+\[
+\mathbf u=(2,3),
+\qquad
+\mathbf v=(4,1)
+\]
+
+Therefore,
+
+\[
+\mathbf u\cdot\mathbf v
+=
+(2)(4)+(3)(1)
+=
+11.
+\]
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Geometric Meaning of Dot Product}
+
+The dot product can also be written as
+
+\[
+\boxed{
+\mathbf u\cdot\mathbf v
+=
+|\mathbf u||\mathbf v|\cos\theta
+}
+\]
+
+where $\theta$ is the angle between the vectors.
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.8]
+
+\draw[->,thick] (0,0)--(4,1.5)
+node[right]{$\mathbf u$};
+
+\draw[->,thick] (0,0)--(3,3)
+node[above]{$\mathbf v$};
+
+\draw (1,0.38) arc[start angle=20,end angle=45,radius=1];
+
+\node at (1.15,0.9) {$\theta$};
+
+\end{tikzpicture}
+
+\end{center}
+
+If
+
+\[
+\mathbf u\cdot\mathbf v=0,
+\]
+
+then the vectors are perpendicular.
+
+\end{frame}
+
+% =================================================
+% DUALITY
+% =================================================
+
+\begin{frame}{Duality}
+
+Duality describes the relationship between vectors and linear
+functions that act on vectors.
+
+A linear functional can be represented as
+
+\[
+f(\mathbf x)=\mathbf a^T\mathbf x.
+\]
+
+For
+
+\[
+\mathbf a=
+\begin{bmatrix}
+2\\1
+\end{bmatrix},
+\qquad
+\mathbf x=
+\begin{bmatrix}
+x\\y
+\end{bmatrix},
+\]
+
+we get
+
+\[
+f(\mathbf x)=2x+y.
+\]
+
+Thus, a vector can define a linear measurement of another vector.
+
+\end{frame}
+
+% =================================================
+% CROSS PRODUCT
+% =================================================
+
+\section{Cross Products}
+
+\begin{frame}{Cross Product}
+
+The cross product is defined for vectors in $\mathbb R^3$.
+
+For
+
+\[
+\mathbf u=(u_1,u_2,u_3)
+\]
+
+and
+
+\[
+\mathbf v=(v_1,v_2,v_3),
+\]
+
+the cross product is
+
+\[
+\mathbf u\times\mathbf v
+=
+\begin{vmatrix}
+\mathbf i&\mathbf j&\mathbf k\\
+u_1&u_2&u_3\\
+v_1&v_2&v_3
+\end{vmatrix}.
+\]
+
+The resulting vector is perpendicular to both $\mathbf u$
+and $\mathbf v$.
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Cross Product Example}
+
+Let
+
+\[
+\mathbf u=(1,0,0)
+\]
+
+and
+
+\[
+\mathbf v=(0,1,0).
+\]
+
+Then
+
+\[
+\mathbf u\times\mathbf v
+=
+(0,0,1).
+\]
+
+Therefore,
+
+\[
+\boxed{
+\mathbf u\times\mathbf v=\mathbf k
+}
+\]
+
+The resulting vector is perpendicular to both original vectors.
+
+\end{frame}
+
+% =================================================
+% CROSS PRODUCT TRANSFORMATION
+% =================================================
+
+\begin{frame}{Cross Product and Transformations}
+
+The cross product has a geometric meaning related to area.
+
+The magnitude is
+
+\[
+|\mathbf u\times\mathbf v|
+=
+|\mathbf u||\mathbf v|\sin\theta.
+\]
+
+This represents the area of the parallelogram formed by
+$\mathbf u$ and $\mathbf v$.
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.8]
+
+\draw[->,thick] (0,0)--(3,1)
+node[right]{$\mathbf u$};
+
+\draw[->,thick] (0,0)--(1,3)
+node[above]{$\mathbf v$};
+
+\draw[dashed] (3,1)--(4,4);
+\draw[dashed] (1,3)--(4,4);
+
+\node at (2,2) {Area};
+
+\end{tikzpicture}
+
+\end{center}
+
+\end{frame}
+
+% =================================================
+% CRAMER
+% =================================================
+
+\section{Cramer's Rule}
+
+\begin{frame}{Cramer's Rule}
+
+Cramer's Rule is a method for solving a system of linear
+equations using determinants.
+
+Consider
+
+\[
+a_1x+b_1y=c_1
+\]
+
+\[
+a_2x+b_2y=c_2.
+\]
+
+The determinant is
+
+\[
+D=
+\begin{vmatrix}
+a_1&b_1\\
+a_2&b_2
+\end{vmatrix}.
+\]
+
+Then
+
+\[
+x=\frac{D_x}{D},
+\qquad
+y=\frac{D_y}{D}.
+\]
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Cramer's Rule Example}
+
+Solve:
+
+\[
+2x+y=5
+\]
+
+\[
+x-y=1.
+\]
+
+Main determinant:
+
+\[
+D=
+\begin{vmatrix}
+2&1\\
+1&-1
+\end{vmatrix}
+=-3.
+\]
+
+For $x$:
+
+\[
+D_x=
+\begin{vmatrix}
+5&1\\
+1&-1
+\end{vmatrix}
+=-6.
+\]
+
+Therefore,
+
+\[
+x=\frac{-6}{-3}=2.
+\]
+
+Similarly,
+
+\[
+y=1.
+\]
+
+Hence,
+
+\[
+\boxed{x=2,\quad y=1}
+\]
+
+\end{frame}
+
+% =================================================
+% CHANGE OF BASIS
+% =================================================
+
+\section{Change of Basis}
+
+\begin{frame}{Change of Basis}
+
+A basis provides a coordinate system for representing vectors.
+
+The standard basis of $\mathbb R^2$ is
+
+\[
+\mathbf e_1=
+\begin{bmatrix}
+1\\0
+\end{bmatrix},
+\qquad
+\mathbf e_2=
+\begin{bmatrix}
+0\\1
+\end{bmatrix}.
+\]
+
+Suppose another basis is
+
+\[
+\mathbf b_1=
+\begin{bmatrix}
+1\\1
+\end{bmatrix},
+\qquad
+\mathbf b_2=
+\begin{bmatrix}
+1\\-1
+\end{bmatrix}.
+\]
+
+The same vector can have different coordinates depending
+on the chosen basis.
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Change of Basis Graph}
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.8]
+
+\draw[->] (-3,0)--(3,0) node[right]{$x$};
+\draw[->] (0,-3)--(0,3) node[above]{$y$};
+
+\draw[->,thick] (0,0)--(2,0)
+node[below]{$\mathbf e_1$};
+
+\draw[->,thick] (0,0)--(0,2)
+node[left]{$\mathbf e_2$};
+
+\draw[->,very thick] (0,0)--(2,2)
+node[above]{$\mathbf b_1$};
+
+\draw[->,very thick] (0,0)--(2,-2)
+node[below]{$\mathbf b_2$};
+
+\end{tikzpicture}
+
+\end{center}
+
+Different bases describe the same vector space using different
+coordinate directions.
+
+\end{frame}
+
+% =================================================
+% EIGENVALUES
+% =================================================
+
+\section{Eigenvectors and Eigenvalues}
+
+\begin{frame}{Eigenvectors and Eigenvalues}
+
+An eigenvector of a matrix is a non-zero vector whose direction
+does not change after the transformation.
+
+It satisfies
+
+\[
+\boxed{
+A\mathbf v=\lambda\mathbf v
+}
+\]
+
+where:
+
+\begin{itemize}
+    \item $\mathbf v$ is the eigenvector.
+    \item $\lambda$ is the eigenvalue.
+    \item $A$ is the transformation matrix.
+\end{itemize}
+
+The eigenvalue tells us how much the eigenvector is stretched
+or compressed.
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Eigenvalue Example}
+
+Let
+
+\[
+A=
+\begin{bmatrix}
+2&0\\
+0&3
+\end{bmatrix}.
+\]
+
+Consider
+
+\[
+\mathbf v=
+\begin{bmatrix}
+1\\
+0
+\end{bmatrix}.
+\]
+
+Then
+
+\[
+A\mathbf v
+=
+\begin{bmatrix}
+2\\
+0
+\end{bmatrix}
+=
+2
+\begin{bmatrix}
+1\\
+0
+\end{bmatrix}.
+\]
+
+Therefore,
+
+\[
+\boxed{\lambda=2}
+\]
+
+and
+
+\[
+\boxed{
+\mathbf v=
+\begin{bmatrix}
+1\\
+0
+\end{bmatrix}}
+\]
+
+is an eigenvector.
+
+\end{frame}
+
+% -------------------------------------------------
+
+\begin{frame}{Eigenvector Graph}
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.9]
+
+\draw[->] (-0.5,0)--(4,0) node[right]{$x$};
+\draw[->] (0,-0.5)--(0,3) node[above]{$y$};
+
+\draw[->,thick] (0,0)--(1.5,0)
+node[above]{$\mathbf v$};
+
+\draw[->,very thick] (0,0)--(3,0)
+node[above]{$A\mathbf v=2\mathbf v$};
+
+\end{tikzpicture}
+
+\end{center}
+
+The direction remains unchanged; only the length changes.
+
+\end{frame}
+
+% =================================================
+% VECTOR SPACES
+% =================================================
+
+\section{Vector Spaces}
+
+\begin{frame}{Vector Space}
+
+A vector space is a collection of objects called vectors that
+can be added together and multiplied by scalars while satisfying
+certain rules.
+
+Examples include:
+
+\begin{itemize}
+    \item $\mathbb R^2$
+    \item $\mathbb R^3$
+    \item Polynomial spaces
+    \item Matrix spaces
+    \item Function spaces
+\end{itemize}
+
+For example,
+
+\[
+\mathbb R^2=
+\left\{
+(x,y):x,y\in\mathbb R
+\right\}.
+\]
+
+\end{frame}
+
+% =================================================
+% SUBSPACE
+% =================================================
+
+\begin{frame}{Subspace}
+
+A subspace is a subset of a vector space that is itself a
+vector space.
+
+For a subset $W$ to be a subspace:
+
+\begin{enumerate}
+    \item $\mathbf0\in W$
+    \item It must be closed under addition.
+    \item It must be closed under scalar multiplication.
+\end{enumerate}
+
+For example, a line passing through the origin is a subspace
+of $\mathbb R^2$.
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.65]
+
+\draw[->] (-3,0)--(3,0) node[right]{$x$};
+\draw[->] (0,-2)--(0,2) node[above]{$y$};
+
+\draw[very thick] (-2,-1.3)--(2,1.3);
+
+\node at (1.7,1.6) {Subspace};
+
+\end{tikzpicture}
+
+\end{center}
+
+\end{frame}
+
+% =================================================
+% APPLICATIONS
+% =================================================
+
+\section{Applications}
+
+\begin{frame}{Applications of Linear Algebra}
+
+Linear algebra is widely used in computing and data science.
+
+\begin{itemize}
+
+\item \textbf{Machine Learning}
+
+Vectors represent data and matrices represent transformations.
+
+\item \textbf{Computer Graphics}
+
+Matrices are used for rotation, scaling, translation and projection.
+
+\item \textbf{Computer Vision}
+
+Images can be represented using matrices.
+
+\item \textbf{Data Science}
+
+Datasets can be represented as matrices.
+
+\item \textbf{Deep Learning}
+
+Neural network operations involve matrix multiplication.
+
+\end{itemize}
+
+\end{frame}
+
+% =================================================
+% BIG PICTURE
+% =================================================
+
+\begin{frame}{Big Picture}
+
+\begin{center}
+
+\begin{tikzpicture}[
+node distance=1.3cm,
+box/.style={
+draw,
+rounded corners,
+minimum width=2.5cm,
+minimum height=0.8cm,
+align=center
+}
+]
+
+\node[box] (v) {Vectors};
+
+\node[box,right=of v] (m) {Matrices};
+
+\node[box,right=of m] (t) {Transformations};
+
+\node[box,below=of m] (d) {Determinants};
+
+\node[box,left=of d] (b) {Basis};
+
+\node[box,right=of d] (e) {Eigenvalues};
+
+\draw[->,thick] (v)--(m);
+\draw[->,thick] (m)--(t);
+\draw[->,thick] (m)--(d);
+\draw[->,thick] (b)--(d);
+\draw[->,thick] (d)--(e);
+\draw[->,thick] (t)--(e);
+
+\end{tikzpicture}
+
+\end{center}
+
+These concepts are connected and form the foundation of
+linear algebra used in computing.
+
+\end{frame}
+
+% =================================================
+% SUMMARY
+% =================================================
+
+\begin{frame}{Summary}
+
+\begin{itemize}
+
+\item Vectors represent magnitude and direction.
+
+\item Coordinate systems provide a way to represent vectors
+and points.
+
+\item Vector operations include addition and scalar multiplication.
+
+\item Linear combinations generate new vectors.
+
+\item Span describes the set of vectors that can be generated.
+
+\item A basis provides an independent coordinate system.
+
+\item Matrices represent linear transformations.
+
+\item Determinants describe area and volume scaling.
+
+\item Inverse matrices reverse transformations.
+
+\item Column space and null space describe important properties
+of matrices.
+
+\item Dot products measure projection and orthogonality.
+
+\item Cross products produce perpendicular vectors in $\mathbb R^3$.
+
+\item Eigenvectors preserve their direction under a transformation.
+
+\item Vector spaces provide the mathematical framework for all
+these concepts.
+
+\end{itemize}
+
+\end{frame}
+
+% =================================================
+% THANK YOU
+% =================================================
+
+\begin{frame}
+
+\centering
+
+\vspace{1cm}
+
+{\Huge \textbf{Thank You}}
+
+\vspace{0.7cm}
+
+
+
+\end{frame}
+
+\end{document}
